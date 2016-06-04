@@ -1,0 +1,97 @@
+# Useage
+#  
+# Please include this file in your basic .gitconfig
+# For example...
+# 
+# [include]
+# path = ~/scripts/.gitconfig_for_include
+
+[alias]
+  current-branch = !git branch --contains=HEAD
+  branch-root = merge-base master HEAD
+
+  revision = !git show -s --format=%H
+  rev = !git revision
+  rv = !git revision
+  current = !git rev HEAD~0 
+  prev = !git rev HEAD~1
+
+  ck = checkout
+  st = status -s
+
+  break = reset HEAD^
+  bk = !git break
+
+  cm = commit
+  cma = commit --amend
+  amend = commit --amend
+
+  create = !git add . && git commit
+  cr = !git create
+
+  final = !git add . && git commit --amend
+  fn = !git final
+  forget = !git final
+  fg = !git final
+  cmaf = !git final
+
+  l  = !git log --oneline --date=short --format=\"%C(yellow)%h%C(reset) %C(magenta)[%ad]%C(reset) %s %C(cyan)@%an%C(reset)\" $(git branch-root)..HEAD
+  ll = log --oneline --name-status master..
+
+  br = branch
+
+  df = diff
+  ds = diff --staged
+
+  remember = !git diff $(git branch-root)
+  rr = !git remember
+  notice = !git diff HEAD^
+
+  names = diff --name-status HEAD^
+  changes = !git diff --name-status $(git merge-base master HEAD) 
+  now = log -n 1 --oneline 
+
+  history = log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short
+
+  rb = rebase
+  surrender = rebase --abort
+  abort = rebase --abort
+
+  continue = !git rbc
+  cnt = !git rbc
+
+  change-the-world = !git add . && git rebase --continue
+  change = !git change-the-world
+  ctw = !git change-the-world
+  cw = !git change-the-world
+  in-about-thirty-years = !git change-the-world
+
+  back-to-the-future = !git rebase -i $(git merge-base master HEAD)
+  back = !git back-to-the-future
+  bf = !git back-to-the-future
+  
+  rebase-to = rebase
+
+  one = log --oneline
+
+  refresh = !git checkout master && git pull origin master && git checkout - && git rebase master
+  new-world = !git refresh
+  nw = !git refresh
+
+  erase = clean -fd
+  er = clean -fd
+  vanish = !git reset . && git checkout . && git clean -fd  
+
+  stash = stash -u -k
+
+  before-push = !git new-world && bundle exec i18n-tasks normalize && bundle exec i18n-tasks health && bundle exec rubocop && bundle exec rake notes && echo 'sleep 5 seconds and you will push' && sleep 5
+  strike = !git push -f
+  gentle-strike = !git before-push && git strike
+  gs = !git gentle-strike
+
+  gentle-push = !git before-push && git push
+  gp = !git gentle-push
+
+  happy = blame
+
+  wip = commit --allow-empty
