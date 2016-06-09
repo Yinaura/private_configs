@@ -45,6 +45,7 @@
 
   remember = !git diff $(git branch-root)
   rr = !git remember
+  dig = !git diff $(git merge-base master HEAD) | grep 
   notice = !git diff HEAD^
 
   names = diff --name-status HEAD^
