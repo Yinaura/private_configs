@@ -85,9 +85,9 @@
 
   stash = stash -u -k
 
-  before-push = !git new-world && bundle exec i18n-tasks normalize && bundle exec i18n-tasks health && bundle exec rubocop && bundle exec rake notes && echo 'sleep 5 seconds and you will push' && sleep 5
   strike = !git push -f
-  gentle-strike = !bash /a/scripts/git/push.sh
+  before-push = !bash /a/scripts/git/before-push.sh
+
   gs = !git gentle-strike
 
   gentle-push = !git before-push && git push
