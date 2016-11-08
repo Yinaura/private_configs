@@ -16,8 +16,8 @@ alias date='gdate'
 alias ll='ls -lah'
 
 # http://subtech.g.hatena.ne.jp/secondlife/20091020/1256008337
-bindkey '^R' history-incremental-pattern-search-backward
-bindkey '^S' history-incremental-pattern-search-forward
+#bindkey '^R' history-incremental-pattern-search-backward
+#bindkey '^S' history-incremental-pattern-search-forward
 
 # rbenv binstubs setting
 export PATH=./vendor/bin:/Users/yinaura/google-cloud-sdk/bin:$PATH
@@ -36,8 +36,8 @@ compinit
 zstyle ':completion:*' ignore-parents parent pwd ..
 
 HISTFILE=~/.zsh_history
-HISTSIZE=2500
-SAVEHIST=2500
+HISTSIZE=100000
+SAVEHIST=100000
 setopt hist_ignore_dups
 setopt hist_ignore_all_dups
 setopt hist_ignore_space
@@ -47,8 +47,6 @@ setopt share_history
 setopt auto_pushd
 setopt pushd_ignore_dups
 set paste
-
-alias history='history -1000'
 
 autoload history-search-end
 zle -N history-beginning-search-backward-end history-search-end
@@ -76,4 +74,18 @@ precmd_functions+=(precmd_vcs)
 
 RPROMPT="%1(v|%F{green}%1v%f|)"
 
+# peco
+peco-select-history() {
+    BUFFER=$(history | sort -k1,1nr | perl -ne 'BEGIN { my @lines = (); } s/^\s*\d+\*?\s*//; $in=$_; if (!(grep {$in eq $_} @lines)) { push(@lines, $in); print $in; }' | peco --query "$LBUFFER")
+    CURSOR=${#BUFFER}
+    zle reset-prompt
+}
+zle -N peco-select-history
+bindkey '^r' peco-select-history
 
+# The next line updates PATH for the Google Cloud SDK.
+source '/Users/yinaura/google-cloud-sdk/path.zsh.inc'
+
+# The next line enables shell command completion for gcloud.
+source '/Users/yinaura/google-cloud-sdk/completion.zsh.inc'
+export PATH="$HOME/.gem/ruby/2.0.0/bin:$PATH"
