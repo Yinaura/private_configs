@@ -74,14 +74,22 @@ precmd_functions+=(precmd_vcs)
 
 RPROMPT="%1(v|%F{green}%1v%f|)"
 
+# Ctrl + r
+
+stty stop undef
+
 # peco
-peco-select-history() {
-    BUFFER=$(history | sort -k1,1nr | perl -ne 'BEGIN { my @lines = (); } s/^\s*\d+\*?\s*//; $in=$_; if (!(grep {$in eq $_} @lines)) { push(@lines, $in); print $in; }' | peco --query "$LBUFFER")
-    CURSOR=${#BUFFER}
-    zle reset-prompt
-}
-zle -N peco-select-history
-bindkey '^r' peco-select-history
+#peco-select-history() {
+#    BUFFER=$(history | sort -k1,1nr | perl -ne 'BEGIN { my @lines = (); } s/^\s*\d+\*?\s*//; $in=$_; if (!(grep {$in eq $_} @lines)) { push(@lines, $in); print $in; }' | peco --query "$LBUFFER")
+#    CURSOR=${#BUFFER}
+#    zle reset-prompt
+#}
+#zle -N peco-select-history
+#bindkey '^r' peco-select-history
+
+zle -la history-incremental-pattern-search-backward && bindkey "^r" history-incremental-pattern-search-backward
+zle -la history-incremental-pattern-search-forward  && bindkey "^s" history-incremental-pattern-search-forward
+
 
 # The next line updates PATH for the Google Cloud SDK.
 source '/Users/yinaura/google-cloud-sdk/path.zsh.inc'
