@@ -98,7 +98,7 @@ function precmd_vcs() {
 }
 precmd_functions+=(precmd_vcs)
 
-RPROMPT="%1(v|%F{green}%1v%f|) $PWD"
+RPROMPT="%1(v|%F{green}%1v%f|) [%~]"
 
 # Ctrl + r
 
