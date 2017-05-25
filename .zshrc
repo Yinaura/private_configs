@@ -1,10 +1,32 @@
 echo 'you read .zshrc'
 
+# For use brew opensssl
+export PATH=/usr/local/opt/openssl/bin:$PATH
+export LD_LIBRARY_PATH=/usr/local/opt/openssl/lib:$LD_LIBRARY_PATH
+export CPATH=/usr/local/opt/openssl/include:$LD_LIBRARY_PATH
+
+unalias -a
+
+eval "$(docker-machine env default)"
+
+# go
+[[ -s ~/.gvm/scripts/gvm ]] && . ~/.gvm/scripts/gvm
+
+# python
+eval "$(pyenv init -)"
+
+# direnv
+eval "$(direnv hook zsh)"
+export EDITOR=vim
+
+bindkey -e
+
 # Aliases
+alias sub='sublime'
 alias b='bundle'
 alias e='exec'
 alias be='bundle exec'
-alias r='bundle exec rails'
+alias r='bundle exec rspec'
 alias rspec='bundle exec rspec'
 alias rubocop='bundle exec rubocop'
 alias i18n-tasks='bundle exec i18n-tasks'
@@ -13,7 +35,11 @@ alias locale='i18n-tasks'
 alias p='pbcopy'
 alias sed='gsed'
 alias date='gdate'
+alias cut='gcut'
+alias split='gspit'
 alias ll='ls -lah'
+alias g='grep'
+alias gore='gore -autoimport'
 
 # http://subtech.g.hatena.ne.jp/secondlife/20091020/1256008337
 #bindkey '^R' history-incremental-pattern-search-backward
@@ -72,24 +98,22 @@ function precmd_vcs() {
 }
 precmd_functions+=(precmd_vcs)
 
-RPROMPT="%1(v|%F{green}%1v%f|)"
+RPROMPT="%1(v|%F{green}%1v%f|) $PWD"
 
 # Ctrl + r
 
-stty stop undef
+#stty stop undef
+#zle -la history-incremental-pattern-search-backward && bindkey "^r" history-incremental-pattern-search-backward
+#zle -la history-incremental-pattern-search-forward  && bindkey "^s" history-incremental-pattern-search-forward
 
 # peco
-#peco-select-history() {
-#    BUFFER=$(history | sort -k1,1nr | perl -ne 'BEGIN { my @lines = (); } s/^\s*\d+\*?\s*//; $in=$_; if (!(grep {$in eq $_} @lines)) { push(@lines, $in); print $in; }' | peco --query "$LBUFFER")
-#    CURSOR=${#BUFFER}
-#    zle reset-prompt
-#}
-#zle -N peco-select-history
-#bindkey '^r' peco-select-history
-
-zle -la history-incremental-pattern-search-backward && bindkey "^r" history-incremental-pattern-search-backward
-zle -la history-incremental-pattern-search-forward  && bindkey "^s" history-incremental-pattern-search-forward
-
+peco-select-history() {
+    BUFFER=$(history 1 | sort -k1,1nr | perl -ne 'BEGIN { my @lines = (); } s/^\s*\d+\*?\s*//; $in=$_; if (!(grep {$in eq $_} @lines)) { push(@lines, $in); print $in; }' | peco --query "$LBUFFER")
+    CURSOR=${#BUFFER}
+    zle reset-prompt
+}
+zle -N peco-select-history
+bindkey '^r' peco-select-history
 
 # The next line updates PATH for the Google Cloud SDK.
 source '/Users/yinaura/google-cloud-sdk/path.zsh.inc'
@@ -97,3 +121,6 @@ source '/Users/yinaura/google-cloud-sdk/path.zsh.inc'
 # The next line enables shell command completion for gcloud.
 source '/Users/yinaura/google-cloud-sdk/completion.zsh.inc'
 export PATH="$HOME/.gem/ruby/2.0.0/bin:$PATH"
+# export PATH="/usr/local/opt/mysql@5.6/bin:$PATH"
+export PATH="/usr/local/opt/mysql@5.5/bin:$PATH"
+
