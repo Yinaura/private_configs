@@ -1,10 +1,6 @@
-# Useage
-#  
-# Please include this file in your basic .gitconfig
-# For example...
-# 
-# [include]
-# path = ~/scripts/.gitconfig_for_include
+
+alias docker-ps-last="docker ps | head -n 2 | tail -n 1 | awk '{print \$1}'"
+alias docker-image-last="docker images | head -n 2 | tail -n 1 | awk '{print \$3}'"
 
 [alias]
   current-branch = !git branch --contains=HEAD
