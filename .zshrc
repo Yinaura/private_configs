@@ -40,7 +40,11 @@ alias split='gspit'
 alias ll='ls -lah'
 alias g='grep'
 alias gore='gore -autoimport'
-
+alias docker-ps-last="docker ps | head -n 2 | tail -n 1 | awk '{print \$1}'"
+alias docker-image-last="docker images | head -n 2 | tail -n 1 | awk '{print \$3}'"
+alias docker-kill-all="docker rm $(docker ps -a -q)"
+alias docker-rmi-all="docker rmi $(docker images -q)"
+ 
 # http://subtech.g.hatena.ne.jp/secondlife/20091020/1256008337
 #bindkey '^R' history-incremental-pattern-search-backward
 #bindkey '^S' history-incremental-pattern-search-forward
