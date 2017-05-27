@@ -44,6 +44,9 @@ alias docker-ps-last="docker ps | head -n 2 | tail -n 1 | awk '{print \$1}'"
 alias docker-image-last="docker images | head -n 2 | tail -n 1 | awk '{print \$3}'"
 alias docker-kill-all="docker rm $(docker ps -a -q)"
 alias docker-rmi-all="docker rmi $(docker images -q)"
+alias last-command="history | tail -n 1 | awk '{ \$1=\"\"; print \$0 }' | sed 's/ //'"
+alias pbcopy-last-command="last-command | pbcopy"
+alias pbl=pbcopy-last-command
  
 # http://subtech.g.hatena.ne.jp/secondlife/20091020/1256008337
 #bindkey '^R' history-incremental-pattern-search-backward
