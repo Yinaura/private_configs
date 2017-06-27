@@ -5,6 +5,7 @@ alias docker-image-last="docker images | head -n 2 | tail -n 1 | awk '{print \$3
 [alias]
   current-branch = !git branch --contains=HEAD
   branch-root = merge-base master HEAD
+  branch-vanish = !git branch | grep -v "master" | xargs git branch -D
 
   revision = !git show -s --format=%H
   rev = !git revision
