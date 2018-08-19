@@ -1,0 +1,62 @@
+[user]
+        username = YumaInaura
+	name = Yumainaura
+	email = yuma.inaura@gmail.com
+[difftool "sourcetree"]
+	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+	path = 
+[mergetool "sourcetree"]
+	cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+	trustExitCode = true
+
+[alias]
+  current-branch = !git branch --contains=HEAD
+  branch-root = merge-base master HEAD
+
+  revision = !git show -s --format=%H
+  current = !git rev HEAD~0 
+
+  ck = checkout
+  st = status -s
+
+  break = reset HEAD^
+
+  forget = !git add . && git commit --amend
+  fg = !git forget
+
+  cm = commit
+  cma = commit --amend
+  amend = commit --amend
+
+  create = !git add . && git commit
+  cr = !git create
+
+  br = branch
+
+  remember = !git diff $(git branch-root)
+  notice = !git diff HEAD^
+
+  names = diff --name-status HEAD^
+  changes = !git diff --name-status $(git merge-base master HEAD) 
+  now = log -n 1 --oneline 
+
+  history = log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short
+
+  abort = rebase --abort
+
+  continue = !git rbc
+
+  change = !git add . && git rebase --continue
+
+  back = !git rebase -i $(git merge-base master HEAD)
+
+  refresh = !git checkout master && git pull origin master && git checkout - && git rebase master
+  vanish = !git reset . && git checkout . && git clean -fd  
+
+  stash = stash -u -k
+  open = !open $(git remote --verbose | head -n 1 | awk '{ print $2 }')
+
+[credential]
+	helper = osxkeychain
+[core]
+	excludesfile = /Users/yuma/.gitignore
