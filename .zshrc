@@ -1,62 +1,34 @@
-echo 'you read .zshrc'
+bindkey -e
+
+# PROMPT
+RPROMPT="%1(v|%F{green}%1v%f|) [%~]"
+
+source ~/.rc/aliases
+
+# pyenv
+eval "$(pyenv init -)"
 
 # For use brew opensssl
 export PATH=/usr/local/opt/openssl/bin:$PATH
 export LD_LIBRARY_PATH=/usr/local/opt/openssl/lib:$LD_LIBRARY_PATH
 export CPATH=/usr/local/opt/openssl/include:$LD_LIBRARY_PATH
 
-unalias -a
-
-eval "$(docker-machine env default)"
+# Bindkey test
+function echo_x(){ echo "bind X to echo X" } 
+zle -N zle_name_x echo_x
+bindkey "^X" zle_name_x
 
 # go
 [[ -s ~/.gvm/scripts/gvm ]] && . ~/.gvm/scripts/gvm
-
-# python
-eval "$(pyenv init -)"
 
 # direnv
 eval "$(direnv hook zsh)"
 export EDITOR=vim
 
-bindkey -e
-
-# Aliases
-alias sub='sublime'
-alias b='bundle'
-alias e='exec'
-alias be='bundle exec'
-alias r='bundle exec rspec'
-alias rspec='bundle exec rspec'
-alias rubocop='bundle exec rubocop'
-alias i18n-tasks='bundle exec i18n-tasks'
-alias g='git'
-alias locale='i18n-tasks'
-alias p='pbcopy'
-alias sed='gsed'
-alias date='gdate'
-alias cut='gcut'
-alias split='gspit'
-alias ll='ls -lah'
-alias g='grep'
-alias gore='gore -autoimport'
-alias docker-ps-last="docker ps | head -n 2 | tail -n 1 | awk '{print \$1}'"
-alias docker-image-last="docker images | head -n 2 | tail -n 1 | awk '{print \$3}'"
-alias docker-kill-all="docker rm $(docker ps -a -q)"
-alias docker-rmi-all="docker rmi $(docker images -q)"
-alias last-command="history | tail -n 1 | awk '{ \$1=\"\"; print \$0 }' | sed 's/ //'"
-alias pbcopy-last-command="last-command | pbcopy"
-alias pbl=pbcopy-last-command
- 
-# http://subtech.g.hatena.ne.jp/secondlife/20091020/1256008337
-#bindkey '^R' history-incremental-pattern-search-backward
-#bindkey '^S' history-incremental-pattern-search-forward
-
 # rbenv binstubs setting
 export PATH=./vendor/bin:/Users/yinaura/google-cloud-sdk/bin:$PATH
 
 # Other 
-export DISABLE_COVERAGE=1
 export PATH="$HOME/.rbenv/bin:$PATH"
 eval "$(rbenv init -)"
 
@@ -87,6 +59,7 @@ zle -N history-beginning-search-forward-end history-search-end
 bindkey "^P" history-beginning-search-backward-end
 bindkey "^N" history-beginning-search-forward-end
 
+
 export LSCOLORS=gxfxbxdxcxegedabagacad
 alias ls="ls -aFG"
 zstyle ':completion:*' list-colors $LSCOLORS
@@ -105,14 +78,6 @@ function precmd_vcs() {
 }
 precmd_functions+=(precmd_vcs)
 
-RPROMPT="%1(v|%F{green}%1v%f|) [%~]"
-
-# Ctrl + r
-
-#stty stop undef
-#zle -la history-incremental-pattern-search-backward && bindkey "^r" history-incremental-pattern-search-backward
-#zle -la history-incremental-pattern-search-forward  && bindkey "^s" history-incremental-pattern-search-forward
-
 # peco
 peco-select-history() {
     BUFFER=$(history 1 | sort -k1,1nr | perl -ne 'BEGIN { my @lines = (); } s/^\s*\d+\*?\s*//; $in=$_; if (!(grep {$in eq $_} @lines)) { push(@lines, $in); print $in; }' | peco --query "$LBUFFER")
@@ -122,12 +87,5 @@ peco-select-history() {
 zle -N peco-select-history
 bindkey '^r' peco-select-history
 
-# The next line updates PATH for the Google Cloud SDK.
-source '/Users/yinaura/google-cloud-sdk/path.zsh.inc'
-
-# The next line enables shell command completion for gcloud.
-source '/Users/yinaura/google-cloud-sdk/completion.zsh.inc'
-export PATH="$HOME/.gem/ruby/2.0.0/bin:$PATH"
-# export PATH="/usr/local/opt/mysql@5.6/bin:$PATH"
-export PATH="/usr/local/opt/mysql@5.5/bin:$PATH"
+test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
