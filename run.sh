@@ -1,5 +1,6 @@
 #!/bin/bash
 
-cp "$HOME/.zshrc" ./
-cp "$HOME/.vimrc" ./
+cp -r "$HOME/.zshrc" ./
+cp -r "$HOME/.vimrc" ./
 
+cp -r "$HOME/.rc" ./
