@@ -1,14 +1,7 @@
 [user]
-        username = YumaInaura
-	name = Yumainaura
-	email = yuma.inaura@gmail.com
-[difftool "sourcetree"]
-	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
-	path = 
-[mergetool "sourcetree"]
-	cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
-	trustExitCode = true
-
+  username = YumaInaura
+  name = Yumainaura
+  email = yuma.inaura@gmail.com
 [alias]
   current-branch = !git branch --contains=HEAD
   branch-root = merge-base master HEAD
