@@ -1,6 +1,12 @@
-syntax on
+:syntax on
+:set number
+:set paste
 
 set clipboard+=unnamed
-set tabstop=2 softtabstop=0 expandtab shiftwidth=2 smarttab
+set backspace=indent,eol,start
 
-set paste
+"Insert newline 
+nnoremap O :<C-u>call append(expand('.'), '')<Cr>j
+
+map <F5> :!%:p<Cr>
+
