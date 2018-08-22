@@ -6,4 +6,4 @@ cp -r "$HOME/.vimrc" ./
 cp -r "$HOME/.gitconfig" ./
 cp -r "$HOME/.gitignore" ./
 
-cp -r "$HOME/.rc" ./
+cp -rf "$HOME/.rc" ./

@@ -10,3 +10,5 @@ nnoremap O :<C-u>call append(expand('.'), '')<Cr>j
 
 map <F5> :!%:p<Cr>
 
+:set expandtab
+:set tabstop=2
