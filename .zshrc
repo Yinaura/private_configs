@@ -3,7 +3,8 @@ bindkey -e
 # PROMPT
 RPROMPT="%1(v|%F{green}%1v%f|) [%~]"
 
-source ~/.rc/aliases
+source ~/.rc/.*
+source ~/.ccc
 
 # pyenv
 eval "$(pyenv init -)"
@@ -12,11 +13,6 @@ eval "$(pyenv init -)"
 export PATH=/usr/local/opt/openssl/bin:$PATH
 export LD_LIBRARY_PATH=/usr/local/opt/openssl/lib:$LD_LIBRARY_PATH
 export CPATH=/usr/local/opt/openssl/include:$LD_LIBRARY_PATH
-
-# Bindkey test
-function echo_x(){ echo "bind X to echo X" } 
-zle -N zle_name_x echo_x
-bindkey "^X" zle_name_x
 
 # go
 [[ -s ~/.gvm/scripts/gvm ]] && . ~/.gvm/scripts/gvm
