@@ -1,0 +1,13 @@
+#!/usr/bin/env zsh -eu
+
+if [ ! $(which zsh) ]; then echo "You need zsh" && exit; fi
+
+up_refreshed_history() {
+  #fc -R ~/.zsh_history
+  zle up-history
+}
+
+zle -N up-refreshed-history up_refreshed_history
+
+# Recipi
+# bindkey '^[[A' # up arrow key
