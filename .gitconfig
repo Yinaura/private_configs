@@ -46,9 +46,14 @@
   refresh = !git checkout master && git pull origin master && git checkout - && git rebase master
   vanish = !git reset . && git checkout . && git clean -fd  
 
-  stash = stash -u -k
-  open = !open $(git remote --verbose | head -n 1 | awk '{ print $2 }')
+  github-url = ! git remote --verbose | head -n 1 | awk '{ print $2 }' | sed -e 's/\\.git$//g'
 
+  # WANT: get branch name by automati
+  current-branch-name = ! git branch | grep -e '^\\* ' | sed -e 's/^\\* //g'
+  github-new-pr-url = ! echo "$(git github-url)"/compare/master..."$(git current-branch-name)"
+  new-pr = ! open $(git github-new-pr-url)
+
+  open = !open $(git github-url)
 [credential]
 	helper = osxkeychain
 [core]

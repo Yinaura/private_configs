@@ -6,6 +6,17 @@ RPROMPT="%1(v|%F{green}%1v%f|) [%~]"
 source ~/.rc/.*
 source ~/.ccc
 
+# zle
+source ~/zle/widgets/peco-select-history-up
+bindkey '^R' peco-select-history-up
+
+source ~/zle/widgets/incremental-select-command-history
+#bindkey '^[[A' incremental-select-command-history
+bindkey '^E' incremental-select-command-history
+
+source ~/zle/widgets/up-refreshed-history
+bindkey '^[[A' up-refreshed-history
+
 # pyenv
 eval "$(pyenv init -)"
 
@@ -73,15 +84,6 @@ function precmd_vcs() {
   [[ -n "$vcs_info_msg_0_" ]] && psvar[1]="$vcs_info_msg_0_"
 }
 precmd_functions+=(precmd_vcs)
-
-# peco
-peco-select-history() {
-    BUFFER=$(history 1 | sort -k1,1nr | perl -ne 'BEGIN { my @lines = (); } s/^\s*\d+\*?\s*//; $in=$_; if (!(grep {$in eq $_} @lines)) { push(@lines, $in); print $in; }' | peco --query "$LBUFFER")
-    CURSOR=${#BUFFER}
-    zle reset-prompt
-}
-zle -N peco-select-history
-bindkey '^r' peco-select-history
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
