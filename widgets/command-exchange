@@ -1,12 +1,18 @@
-# WIP
+#!/usr/bin/env zsh -eu
 
-if [ ! $(which zsh) ]; then echo "You need zsh" && exit 1; fi
-
-command_exchange () {
-  local exchange_command=$(peco)
-  local now_command="$BUFFER"
-  BUFFER=$(echo "$now_command" | sed "s/view /${exchange_command} /g")
+_remove_command() {
+  echo "$1" | perl -pe "s/(^|\s+)([a-z][a-z0-9]+\s+)/ /"
 }
 
-zle -N  command-exchange command_exchange
+_command_exchange () {
+  BUFFER=$(echo "$BUFFER" | perl -pe "s/(^|\s+)([a-z][a-z0-9]+\s+)/ /")
+  CURSOR=0
+}
+
+_zel_command_exchange () {
+  zle -N command-exchange _command_exchange
+}
+
+# Recipi
+# bindkey "^W^E" command-exchange
 

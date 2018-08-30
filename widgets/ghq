@@ -1,0 +1,42 @@
+#!/usr/bin/env zsh -eu
+
+_ghq_select() {
+  if [ ! $(which peco) ]; then echo "You need peco" && exit 1; fi
+
+  local ghq_selected=$(ghq list | peco --query="$BUFFER")
+
+  if [ ! -z "$ghq_selected" ]; then
+    BUFFER="cd "$(ghq root)"/$ghq_selected"
+    # BUFFER=$(ghq look "$ghq_selected")
+    zle accept-line
+  fi
+}
+
+zle -N ghq-select _ghq_select
+
+# Recipi : Control + GG
+# bindkey '^G^G' ghq-select
+
+_ghq_open() {
+  if [ ! $(which peco) ]; then echo "You need peco" && exit 1; fi
+
+  local remote_repository_web_url=$(ghq list | sed -e 's/^/https:\/\//g' | peco --query="$BUFFER")
+
+  if [ ! -z "$remote_repository_web_url" ]; then
+    BUFFER="open $remote_repository_web_url"
+    zle accept-line
+  fi
+}
+
+zle -N ghq-open _ghq_open
+
+# Recipi : Control + GO
+# bindkey '^G^O' ghq-open
+
+#------------------------------------------
+# NOTE
+# ghq look can not return to previous directory with `$ cd -`
+# Mac OS High Sierra
+# zsh 5.5.1 (x86_64-apple-darwin17.5.0)
+# BUFFER="ghq look $(ghq list | peco)"
+#------------------------------------------
