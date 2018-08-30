@@ -3,19 +3,12 @@ bindkey -e
 # PROMPT
 RPROMPT="%1(v|%F{green}%1v%f|) [%~]"
 
-source ~/.rc/.*
-source ~/.ccc
+autoload colors
+colors
+PROMPT="%{${fg[green]}%}%(!.#.$) %{${reset_color}%}"
 
-# zle
-source ~/zle/widgets/peco-select-history-up
-bindkey '^R' peco-select-history-up
-
-source ~/zle/widgets/incremental-select-command-history
-#bindkey '^[[A' incremental-select-command-history
-bindkey '^E' incremental-select-command-history
-
-source ~/zle/widgets/up-refreshed-history
-bindkey '^[[A' up-refreshed-history
+for file in $(find ~/zle/widgets -type f); do source "$file"; done
+source ~/zle/bindkey
 
 # pyenv
 eval "$(pyenv init -)"
@@ -60,20 +53,10 @@ setopt auto_pushd
 setopt pushd_ignore_dups
 set paste
 
-autoload history-search-end
-zle -N history-beginning-search-backward-end history-search-end
-zle -N history-beginning-search-forward-end history-search-end
-bindkey "^P" history-beginning-search-backward-end
-bindkey "^N" history-beginning-search-forward-end
-
-
 export LSCOLORS=gxfxbxdxcxegedabagacad
 alias ls="ls -aFG"
 zstyle ':completion:*' list-colors $LSCOLORS
 
-autoload colors
-colors
-PROMPT="%{${fg[green]}%}%(!.#.$) %{${reset_color}%}"
 
 autoload -Uz vcs_info
 zstyle ':vcs_info:*' formats '[%b]'
@@ -87,3 +70,4 @@ precmd_functions+=(precmd_vcs)
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
+for file in $(find $HOME/.pb4human/lib -type f); do source "$file"; done # pb4human

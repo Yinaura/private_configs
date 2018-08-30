@@ -1,0 +1,5 @@
+bindkey "^W^E" command-exchange
+bindkey '^G^G' ghq-select
+bindkey '^G^O' ghq-open
+bindkey '^R' peco-command-history-up
+bindkey '^B' peco-command-history-bottom
