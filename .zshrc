@@ -1,4 +1,4 @@
-bindkey -e
+indkey -e
 
 # PROMPT
 RPROMPT="%1(v|%F{green}%1v%f|) [%~]"
@@ -52,22 +52,5 @@ setopt share_history
 setopt auto_pushd
 setopt pushd_ignore_dups
 set paste
-
-export LSCOLORS=gxfxbxdxcxegedabagacad
-alias ls="ls -aFG"
-zstyle ':completion:*' list-colors $LSCOLORS
-
-
-autoload -Uz vcs_info
-zstyle ':vcs_info:*' formats '[%b]'
-zstyle ':vcs_info:*' actionformats '[%b|%a]'
-function precmd_vcs() {
-  psvar=()
-  LANG=en_US.UTF-8 vcs_info
-  [[ -n "$vcs_info_msg_0_" ]] && psvar[1]="$vcs_info_msg_0_"
-}
-precmd_functions+=(precmd_vcs)
-
-test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
 for file in $(find $HOME/.pb4human/lib -type f); do source "$file"; done # pb4human
