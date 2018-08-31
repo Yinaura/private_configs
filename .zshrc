@@ -1,11 +1,30 @@
-indkey -e
+bindkey -e
 
-# PROMPT
-RPROMPT="%1(v|%F{green}%1v%f|) [%~]"
 
+# coloring
+
+export LSCOLORS=gxfxbxdxcxegedabagacad
+alias ls="ls -aFG"
+zstyle ':completion:*' list-colors $LSCOLORS
+
+# git branch
+autoload -Uz vcs_info
+zstyle ':vcs_info:*' formats '[%b]'
+zstyle ':vcs_info:*' actionformats '[%b|%a]'
+function precmd_vcs() {
+  psvar=()
+  LANG=en_US.UTF-8 vcs_info
+  [[ -n "$vcs_info_msg_0_" ]] && psvar[1]="$vcs_info_msg_0_"
+}
+precmd_functions+=(precmd_vcs)
+
+# RPROMPT
 autoload colors
 colors
 PROMPT="%{${fg[green]}%}%(!.#.$) %{${reset_color}%}"
+
+# PROMPT
+RPROMPT="%1(v|%F{green}%1v%f|) [%~]"
 
 for file in $(find ~/zle/widgets -type f); do source "$file"; done
 source ~/zle/bindkey
@@ -52,5 +71,10 @@ setopt share_history
 setopt auto_pushd
 setopt pushd_ignore_dups
 set paste
+
+for file in $(find $HOME/.pb4human/lib -type f); do source "$file"; done # pb4human
+
+zle -N pbcopy-lastcommand
+bindkey ^P^L pbcopy-lastcommand
 
 for file in $(find $HOME/.pb4human/lib -type f); do source "$file"; done # pb4human
