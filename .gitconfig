@@ -31,8 +31,6 @@
 
   changes = !git diff --name-status $(git merge-base master HEAD) 
 
-  history = log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short
-
   abort = rebase --abort
 
   continue = !git rbc
@@ -44,13 +42,6 @@
   refresh = !git fetch && git reset --hard origin/$(git current-branch)
   vanish = !git reset . && git checkout . && git clean -fd  
 
-  github-url = ! git remote --verbose | head -n 1 | awk '{ print $2 }' | sed -e 's/\\.git$//g'
-
-  # WANT: get branch name by automatic
   current-branch-name = ! git branch | grep -e '^\\* ' | sed -e 's/^\\* //g'
-  github-new-pr-url = ! echo "$(git github-url)"/compare/master..."$(git current-branch-name)"
-  new-pr = ! open $(git github-new-pr-url)
-
-  open = !open $(git github-url)
 [credential]
 	helper = osxkeychain
