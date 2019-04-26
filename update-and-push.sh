@@ -8,4 +8,5 @@ cp -r "$HOME/.gitignore" ./
 
 git add .
 git commit -m 'Update with script'
+git push
 
