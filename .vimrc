@@ -13,4 +13,6 @@ map <F5> :!%:p<Cr>
 :set expandtab
 :set tabstop=2
 
+set encoding=utf-8
+set fileencodings=utf-8
 

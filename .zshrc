@@ -141,3 +141,4 @@ if [ -f '/Users/yumainaura/Applications/google-cloud-sdk/path.zsh.inc' ]; then .
 # The next line enables shell command completion for gcloud.
 if [ -f '/Users/yumainaura/Applications/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/yumainaura/Applications/google-cloud-sdk/completion.zsh.inc'; fi
 export PATH="/usr/local/opt/mysql@5.7/bin:$PATH"
+export PATH="/usr/local/opt/ruby/bin:$PATH"
