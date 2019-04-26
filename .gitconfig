@@ -3,6 +3,9 @@
   name = YumaInaura
   email = yuma.inaura@gmail.com
 [alias]
+  append = !git add . && git commit -m 'no named commit'
+  ap = !git append
+
   current-branch = !git branch --contains=HEAD
   branch-root = merge-base master HEAD
 
