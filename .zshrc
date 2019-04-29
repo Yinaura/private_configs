@@ -99,11 +99,19 @@ function peco-history-selection() {
 zle -N peco-history-selection
 bindkey '^R' peco-history-selection
 
-function pp() {
-    history -n 1 | tail -r  | awk '!a[$0]++' | peco --layout=bottom-up | tr -d "\r\n" | pbcopy 
+function peco-history-pbcopy() {
+  history -n 1 | tail -r  | awk '!a[$0]++' | peco --layout=bottom-up | tr -d "\r\n" | pbcopy 
 }
 
-zle -N peco-history-selection
+zle -N peco-history-pbcopy
+bindkey '^P^P' peco-history-pbcopy
+
+function rp() {
+  RPROMPT=""
+}
+function rpe() {
+  RPROMPT="%1(v|%F{green}%1v%f|) [%~]"
+}
 
 # ghq
 function peco-src () {
