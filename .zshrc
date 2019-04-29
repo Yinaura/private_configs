@@ -1,25 +1,6 @@
 bindkey -e
 
-# https://qiita.com/ganZ/items/64fd2bc35db1a0acf1a6
-
-# setopt auto_cd                  # ディレクトリ名と一致した場合 cd
-# setopt autopushd
-# setopt pushd_ignore_dups        # 同じディレクトリは追加しない
-#
-# #--- zsh 用の設定 ---
-# #. /usr/local/bin/autojump
-#
-# . /usr/local/bin/autojump.zsh
-#
-# #--- cd 時の仕掛け ---
-# function precmd () {
-#     pwd=`pwd`
-#     echo "[^[[35m$pwd^[[m]"
-#     autojump -a $pwd
-#     echo $pwd > ~/.curdir
-# }
-# https://qiita.com/ganZ/items/64fd2bc35db1a0acf1a6
-
+eval "$(pyenv init -)"
 
 autoload colors
 colors
