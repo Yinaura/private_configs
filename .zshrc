@@ -99,6 +99,12 @@ function peco-history-selection() {
 zle -N peco-history-selection
 bindkey '^R' peco-history-selection
 
+function pp() {
+    history -n 1 | tail -r  | awk '!a[$0]++' | peco --layout=bottom-up | tr -d "\r\n" | pbcopy 
+}
+
+zle -N peco-history-selection
+
 # ghq
 function peco-src () {
   local selected_dir=$(ghq list -p | peco --query "$LBUFFER")
