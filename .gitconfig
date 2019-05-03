@@ -1,10 +1,11 @@
 [user]
   username = YumaInaura
-  name = Yumainaura
+  name = YumaInaura
   email = yuma.inaura@gmail.com
-[init]
-  templatedir = ~/.git_templates
 [alias]
+  append = !git add . && git commit -m 'no named commit'
+  ap = !git append
+
   current-branch = !git branch --contains=HEAD
   branch-root = merge-base master HEAD
 
@@ -28,14 +29,7 @@
 
   br = branch
 
-  remember = !git diff $(git branch-root)
-  notice = !git diff HEAD^
-
-  names = diff --name-status HEAD^
   changes = !git diff --name-status $(git merge-base master HEAD) 
-  now = log -n 1 --oneline 
-
-  history = log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short
 
   abort = rebase --abort
 
@@ -48,16 +42,6 @@
   refresh = !git fetch && git reset --hard origin/$(git current-branch)
   vanish = !git reset . && git checkout . && git clean -fd  
 
-  github-url = ! git remote --verbose | head -n 1 | awk '{ print $2 }' | sed -e 's/\\.git$//g'
-
-  # WANT: get branch name by automatic
   current-branch-name = ! git branch | grep -e '^\\* ' | sed -e 's/^\\* //g'
-  github-new-pr-url = ! echo "$(git github-url)"/compare/master..."$(git current-branch-name)"
-  new-pr = ! open $(git github-new-pr-url)
-
-  open = !open $(git github-url)
 [credential]
 	helper = osxkeychain
-[core]
-	excludesfile = /Users/yuma/.gitignore
-#  editor = 'vim' -c 'startinsert'
