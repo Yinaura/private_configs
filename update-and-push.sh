@@ -7,6 +7,6 @@ cp -r "$HOME/.gitconfig" ./
 cp -r "$HOME/.gitignore" ./
 
 git add .
-git commit -m 'Update with script'
+git commit -m 'Update by script'
 git push
 
