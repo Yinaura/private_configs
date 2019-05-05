@@ -45,3 +45,5 @@
   current-branch-name = ! git branch | grep -e '^\\* ' | sed -e 's/^\\* //g'
 [credential]
 	helper = osxkeychain
+[core]
+	excludesfile = /Users/yuma/.gitignore

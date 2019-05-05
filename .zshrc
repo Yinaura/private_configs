@@ -12,6 +12,11 @@ alias ttt='cd ../../../'
 alias p=pbcopy
 alias gg='git grep'
 alias gap='git ap'
+alias g='git'
+
+zstyle ':completion:*:*:git:*' script ~/.zsh/git-completion.bash
+fpath=(~/.zsh $fpath)
+autoload -Uz compinit && compinit
 
 function docker-python() {
   cat "$1" | docker run -i python
