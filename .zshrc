@@ -95,14 +95,25 @@ PROMPT="%{${fg[green]}%}%(!.#.$) %{${reset_color}%}"
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
-function peco-history-selection() {
-    BUFFER=`history -n 1 | tail -r  | awk '!a[$0]++' | peco --layout=bottom-up`
+# function peco-history-selection() {
+#     BUFFER=$(history -n 1 | tail -r  | awk '!a[$0]++' | peco --layout=bottom-up --print-query)
+# 
+#     CURSOR=$#BUFFER
+#     zle reset-prompt
+# }
+#
+# zle -N peco-history-selection
+# bindkey '^R' peco-history-selection
+# 
+
+function peco-history-selection-keep() {
+    BUFFER=$(history -n 1 | tail -r  | awk '!a[$0]++' | peco --layout=bottom-up --query="$LBUFFER" --print-query)
+
     CURSOR=$#BUFFER
-    zle reset-prompt
 }
 
-zle -N peco-history-selection
-bindkey '^R' peco-history-selection
+zle -N peco-history-selection-keep
+bindkey '^R' peco-history-selection-keep
 
 function peco-history-pbcopy() {
   history -n 1 | tail -r  | awk '!a[$0]++' | peco --layout=bottom-up | tr -d "\r\n" | pbcopy 
@@ -120,7 +131,7 @@ function rpe() {
 
 # ghq
 function peco-src () {
-  local selected_dir=$(ghq list -p | peco --query "$LBUFFER")
+  local selected_dir=$(ghq list -p | peco --query="$LBUFFER")
   if [ -n "$selected_dir" ]; then
     BUFFER="cd ${selected_dir}"
     zle accept-line
