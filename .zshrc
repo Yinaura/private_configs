@@ -107,7 +107,7 @@ test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell
 # 
 
 function peco-history-selection-keep() {
-    BUFFER=$(history -n 1 | tail -r  | awk '!a[$0]++' | peco --layout=bottom-up --query="$LBUFFER" --print-query)
+    BUFFER=$(history -n 1 | tail -r  | awk '!a[$0]++' | peco --layout=bottom-up --query="$LBUFFER")
 
     CURSOR=$#BUFFER
 }
