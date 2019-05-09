@@ -44,6 +44,7 @@ export EDITOR=vim
 export PATH=./vendor/bin:/Users/yinaura/google-cloud-sdk/bin:$PATH
 
 # Other
+export PATH="$HOME/.rbenv/shims:$PATH"
 export PATH="$HOME/.rbenv/bin:$PATH"
 eval "$(rbenv init -)"
 
