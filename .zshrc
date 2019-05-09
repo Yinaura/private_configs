@@ -45,7 +45,7 @@ export PATH=./vendor/bin:/Users/yinaura/google-cloud-sdk/bin:$PATH
 
 # Other
 export PATH="$HOME/.rbenv/shims:$PATH"
-export PATH="$HOME/.rbenv/bin:$PATH"
+#export PATH="$HOME/.rbenv/bin:$PATH"
 eval "$(rbenv init -)"
 
 PATH=${PATH}
@@ -108,7 +108,7 @@ test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell
 # 
 
 function peco-history-selection-keep() {
-    BUFFER=$(history -n 1 | tail -r  | awk '!a[$0]++' | peco --layout=bottom-up --query="$LBUFFER")
+    BUFFER=$(history -n 1 | tail -r  | awk '!a[$0]++' | peco --layout=bottom-up --query="$BUFFER")
 
     CURSOR=$#BUFFER
 }
