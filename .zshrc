@@ -96,17 +96,6 @@ PROMPT="%{${fg[green]}%}%(!.#.$) %{${reset_color}%}"
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
-# function peco-history-selection() {
-#     BUFFER=$(history -n 1 | tail -r  | awk '!a[$0]++' | peco --layout=bottom-up --print-query)
-# 
-#     CURSOR=$#BUFFER
-#     zle reset-prompt
-# }
-#
-# zle -N peco-history-selection
-# bindkey '^R' peco-history-selection
-# 
-
 function peco-history-selection-keep() {
     BUFFER=$(history -n 1 | tail -r  | awk '!a[$0]++' | peco --layout=bottom-up --query="$BUFFER" --print-query | tail -n 1)
 
