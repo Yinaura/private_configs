@@ -47,3 +47,5 @@
 	helper = osxkeychain
 [core]
 	excludesfile = /Users/yuma/.gitignore
+[push]
+	default = current
