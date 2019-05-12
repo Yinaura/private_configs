@@ -97,20 +97,26 @@ PROMPT="%{${fg[green]}%}%(!.#.$) %{${reset_color}%}"
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
 function peco-history-selection-keep() {
-    BUFFER=$(history -n 1 | tail -r  | awk '!a[$0]++' | peco --layout=bottom-up --query="$BUFFER" --print-query | tail -n 1)
+  BUFFER=$(history -n 1 | tail -r  | awk '!a[$0]++' | peco --layout=bottom-up --query="$BUFFER" --print-query | tail -n 1)
 
-    CURSOR=$#BUFFER
+  CURSOR=$#BUFFER
 }
-
 zle -N peco-history-selection-keep
 bindkey '^R' peco-history-selection-keep
 
 function peco-history-pbcopy() {
   history -n 1 | tail -r  | awk '!a[$0]++' | peco --layout=bottom-up | tr -d "\r\n" | pbcopy 
 }
-
 zle -N peco-history-pbcopy
 bindkey '^P^P' peco-history-pbcopy
+
+
+function peco-history-current-pbcopy() {
+  print "$BUFFER" | tr -d "\r\n" | pbcopy
+}
+
+zle -N peco-history-current-pbcopy
+bindkey '^P^O' peco-history-current-pbcopy
 
 function rp() {
   RPROMPT=""
