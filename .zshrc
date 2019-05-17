@@ -13,6 +13,8 @@ alias p=pbcopy
 alias gg='git grep'
 alias gap='git ap'
 alias g='git'
+alias gf='git fg'
+alias ga='git ap'
 
 zstyle ':completion:*:*:git:*' script ~/.zsh/git-completion.bash
 fpath=(~/.zsh $fpath)
