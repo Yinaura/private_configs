@@ -1,10 +1,10 @@
 #!/bin/bash
 
-cp -r "$HOME/.zshrc" ./
-cp -r "$HOME/.vimrc" ./
+cp "$HOME/.zshrc" ./
+cp "$HOME/.vimrc" ./
 
-cp -r "$HOME/.gitconfig" ./
-cp -r "$HOME/.gitignore" ./
+cp "$HOME/.gitconfig" ./
+cp "$HOME/.gitignore" ./
 
 git add .
 git commit -m 'Update by script'
