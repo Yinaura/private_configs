@@ -1,6 +1,7 @@
 bindkey -e
 
 eval "$(pyenv init -)"
+eval "$(rbenv init -)"
 
 autoload colors
 colors

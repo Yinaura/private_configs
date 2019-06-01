@@ -12,7 +12,7 @@
   revision = !git show -s --format=%H
   current = !git rev HEAD~0 
 
-  ckd = checkout
+  ck = checkout
   st = status -s
 
   break = reset HEAD^
