@@ -3,14 +3,18 @@
   name = YumaInaura
   email = yuma.inaura@gmail.com
 [alias]
-  append = !git add . && git commit -m 'no named commit'
+
   ap = !git append
+
+  current-branch-name = ! git branch | grep -e '^\\* ' | sed -e 's/^\\* //g'
+  commit-by-current-branch-name = ! git commit --allow-empty -m "$(git current-branch-name)"
+  checkout-new-branch-and-commit-empty = "!f() { git checkout -b \"$1\" && git commit-by-current-branch-name; }; f"
 
   current-branch = !git branch --contains=HEAD
   branch-root = merge-base master HEAD
 
   revision = !git show -s --format=%H
-  current = !git rev HEAD~0 
+  current = !git rev HEAD~0
 
   ck = checkout
   st = status -s
@@ -29,7 +33,7 @@
 
   br = branch
 
-  changes = !git diff --name-status $(git merge-base master HEAD) 
+  changes = !git diff --name-status $(git merge-base master HEAD)
 
   abort = rebase --abort
 
@@ -40,9 +44,9 @@
   back = !git rebase -i $(git merge-base master HEAD)
 
   refresh = !git fetch && git reset --hard origin/$(git current-branch)
-  vanish = !git reset . && git checkout . && git clean -fd  
+  vanish = !git reset . && git checkout . && git clean -fd
 
-  current-branch-name = ! git branch | grep -e '^\\* ' | sed -e 's/^\\* //g'
+
 [credential]
 	helper = osxkeychain
 [core]
